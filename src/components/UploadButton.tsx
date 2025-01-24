@@ -17,16 +17,28 @@ export default function UploadButton() {
   const [isUploading, setIsUploading] = useState(false);
   const incrementRefreshTrigger = useStore((state) => state.incrementRefreshTrigger);
 
-  const handleUpload = async (result: UploadResult) => {
+  const handleUpload = async (result: any) => {
+    if (!result?.info) return;
+
     try {
-      setIsUploading(true);
-      if (result.event === "success") {
-        toast.success("Image uploaded successfully!");
+      const response = await fetch("/api/images", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          public_id: result.info.public_id,
+          secure_url: result.info.secure_url,
+        }),
+      });
+
+      if (response.ok) {
         incrementRefreshTrigger();
+        toast.success("Image uploaded successfully!");
       }
     } catch (error) {
+      console.error("Error saving image:", error);
       toast.error("Failed to upload image");
-      console.error("Upload error:", error);
     } finally {
       setIsUploading(false);
     }
