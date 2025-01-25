@@ -4,6 +4,7 @@ import { CldImage } from "next-cloudinary";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useStore } from "@/store/useStore";
+import { useAuthStore } from "@/store/useAuthStore";
 import ImagePopup from "./ImagePopup";
 
 interface Image {
@@ -15,6 +16,7 @@ export default function ImageGallery({ images: initialImages }: { images: Image[
   const [images, setImages] = useState(initialImages);
   const [selectedImage, setSelectedImage] = useState<Image | null>(null);
   const refreshTrigger = useStore((state) => state.refreshTrigger);
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
 
   useEffect(() => {
     const refreshImages = async () => {
@@ -27,6 +29,8 @@ export default function ImageGallery({ images: initialImages }: { images: Image[
       refreshImages();
     }
   }, [refreshTrigger]);
+
+  if (!isAuthenticated) return null;
 
   return (
     <>

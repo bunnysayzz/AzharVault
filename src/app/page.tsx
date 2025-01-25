@@ -1,5 +1,6 @@
 import { v2 as cloudinary } from "cloudinary";
 import ImageGallery from "@/components/ImageGallery";
+import PasswordPanel from "@/components/PasswordPanel";
 
 export const dynamic = 'force-dynamic';
 
@@ -29,6 +30,7 @@ export default async function Home() {
 
   return (
     <main className="min-h-screen bg-gray-900 pt-20">
+      <PasswordPanel />
       <div className="max-w-7xl mx-auto">
         <ImageGallery images={images} />
       </div>
