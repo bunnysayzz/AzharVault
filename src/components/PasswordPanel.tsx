@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import toast from "react-hot-toast";
 import { useAuthStore } from "@/store/useAuthStore";
+import Image from "next/image";
 
 export default function PasswordPanel() {
   const [password, setPassword] = useState("");
@@ -46,23 +47,28 @@ export default function PasswordPanel() {
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="flex justify-center mb-4"
+              className="flex justify-center mb-6"
             >
-              <div className="w-16 h-16 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-full flex items-center justify-center">
-                <svg 
-                  xmlns="http://www.w3.org/2000/svg" 
-                  className="h-8 w-8 text-white" 
-                  fill="none" 
-                  viewBox="0 0 24 24" 
-                  stroke="currentColor"
+              <div className="relative w-24 h-24 mb-2">
+                <motion.div
+                  animate={{ 
+                    scale: [1, 1.05, 1],
+                    rotate: [0, -5, 5, 0]
+                  }}
+                  transition={{ 
+                    duration: 4,
+                    repeat: Infinity,
+                    repeatType: "reverse"
+                  }}
                 >
-                  <path 
-                    strokeLinecap="round" 
-                    strokeLinejoin="round" 
-                    strokeWidth={2} 
-                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" 
+                  <Image
+                    src="/batman-cricut.svg"
+                    alt="Batman Logo"
+                    width={96}
+                    height={96}
+                    className="w-24 h-24 drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]"
                   />
-                </svg>
+                </motion.div>
               </div>
             </motion.div>
             <motion.h2 
@@ -77,15 +83,23 @@ export default function PasswordPanel() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4 }}
-              className="text-gray-400"
+              className="text-gray-400 mb-2"
             >
               Please enter the password to continue
+            </motion.p>
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5 }}
+              className="text-sm font-medium bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-transparent bg-clip-text italic"
+            >
+              Batman is watching you
             </motion.p>
           </div>
           <motion.form 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
+            transition={{ delay: 0.6 }}
             onSubmit={handleSubmit} 
             className="space-y-6"
           >
