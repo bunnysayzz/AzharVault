@@ -5,7 +5,7 @@ import { useStore } from "@/store/useStore";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
-interface UploadResult {
+interface CloudinaryUploadResponse {
   info: {
     public_id: string;
     secure_url: string;
@@ -17,7 +17,7 @@ export default function UploadButton() {
   const [isUploading, setIsUploading] = useState(false);
   const incrementRefreshTrigger = useStore((state) => state.incrementRefreshTrigger);
 
-  const handleUpload = async (result: any) => {
+  const handleUpload = async (result: CloudinaryUploadResponse) => {
     if (!result?.info) return;
 
     try {
@@ -47,7 +47,9 @@ export default function UploadButton() {
   return (
     <CldUploadWidget
       uploadPreset="ml_default"
-      onSuccess={handleUpload}
+      onSuccess={(result) => {
+        handleUpload(result as CloudinaryUploadResponse);
+      }}
       onClose={() => setIsUploading(false)}
     >
       {({ open }) => (
