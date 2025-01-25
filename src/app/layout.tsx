@@ -10,8 +10,7 @@ const geist = Geist({
 });
 
 export const metadata: Metadata = {
-  title: "ApnaDrive - Your Personal Cloud Storage",
-  description: "Store and share your images easily with ApnaDrive",
+  title: "Azhar Vault",
 };
 
 export default function RootLayout({
